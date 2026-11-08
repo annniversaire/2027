@@ -302,7 +302,11 @@ function tick(){
  : '🔌 INCIDENT CONNECT ! Connexion interrompue : service indisponible, reconnexion en cours… −1 chance !';if(lives<=0)gameOver()}});
  draw();raf=requestAnimationFrame(tick)
 }
-function start(){cancelAnimationFrame(raf);reset();running=true;$('start').textContent='Recommencer';$('toast').textContent='C’est parti ! Attrape les CP / RTT !';tick()}
+function start(){cancelAnimationFrame(raf);reset();running=true;$('start').textContent='Recommencer';$('toast').textContent='C’est parti ! Attrape les CP / RTT !';tick();    if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen();
+    } else {
+        document.exitFullscreen();
+    }}
 let winTimers=[];
 function clearWinTimers(){winTimers.forEach(t=>clearTimeout(t));winTimers=[]}
 function showWinStage(n){
@@ -331,4 +335,13 @@ addEventListener('keyup',e=>keys[e.key===' '?'Space':e.key]=false);
 canvas.addEventListener('pointerdown',e=>{if(!running)return;let r=canvas.getBoundingClientRect(),x=e.clientX-r.left;if(x<r.width*.35)keys.left=true;else if(x>r.width*.65)keys.right=true;else jump()});
 canvas.addEventListener('pointerup',()=>{keys.left=false;keys.right=false});canvas.addEventListener('pointerleave',()=>{keys.left=false;keys.right=false});
 reset();draw();
+
+function passerPleinEcran() {
+    if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen();
+    } else {
+        document.exitFullscreen();
+    }
+}
+
 </script></body></html>
